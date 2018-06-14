@@ -1,0 +1,62 @@
+<html>
+<head>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='styles.css') }}">
+<script type="text/javascript" src="https://gc.kis.v2.scr.kaspersky-labs.com/1E570167-B8D8-774C-8F50-FEEF4491E7B2/main.js" charset="UTF-8"></script>
+</head>
+<body>
+		<form action="/login" method="get">
+			<button type="submit">Logout</button>	
+		</form>
+<div class = 'k'>
+		<h1>{{ style.name }}</h1>
+		{% with messages = get_flashed_messages() %}
+      {% if messages %}  
+        <ul>
+        {% for message in messages %}
+            <li> <strong> {{ message }} </strong> </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+    {% if details !=[] %}
+		<a href = "{{url_for('newCommodity', style_id = style.id )}}">Create New commodity</a>
+		</br></br>
+	 {% for i in details %}
+			{% if i.materialtype == 'sheepskin'%}
+			<h2>sheepskin</h2>	
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editCommodity', style_id = style.id, commodity_id=i.id ) }}'>Edit</a></br>
+				<a href='{{url_for('deleteCommodity', style_id = style.id, commodity_id=i.id ) }}'>Delete</a></br></br>
+			{% endif %}
+		</br>
+			{% if i.materialtype == 'synthetic leather' %}
+			<h2>synthetic leather</h2>
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editCommodity', style_id = style.id, commodity_id=i.id ) }}'>Edit</a></br>
+				<a href='{{url_for('deleteCommodity', style_id = style.id, commodity_id=i.id ) }}'>Delete</a>
+				</br>
+			{% endif %}
+	</br>
+	</br>
+		
+			{% if i.materialtype == 'microfiber leather' %}
+			<h2>microfiber leather</h2>
+				<p>{{i.name}}</p>
+				<p>{{i.description}}</p>
+				<p>{{i.price}}</p>
+				<a href='{{url_for('editCommodity', style_id = style.id, commodity_id=i.id ) }}'>Edit</a>
+				<a href='{{url_for('deleteCommodity', style_id = style.id, commodity_id=i.id ) }}'>Delete</a>
+    </br>
+			{% endif %} 
+	{% endfor %}
+	{% else %}
+		<p> You currently have no commodity details. <p>
+		<a href = "{{url_for('newCommodity', style_id = style.id )}}">Create New commodity</a>
+	{% endif %}
+</div>
+	</body>
+</html>
